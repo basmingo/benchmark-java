@@ -1,0 +1,19 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5431/benchmark-test
+    username: admin
+    password: password
+
+  #  datasource:
+#    url: jdbc:postgresql://localhost:5431/benchmark-test
+#    username: admin
+#    password: password
+#    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://localhost:5431/benchmark-test
+    user: admin
+    password: password
+logging:
+  level:
+    org.springframework.data.r2dbc: DEBUG
