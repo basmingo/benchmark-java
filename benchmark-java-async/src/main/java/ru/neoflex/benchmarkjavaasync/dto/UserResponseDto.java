@@ -15,13 +15,15 @@ import java.util.UUID;
 @ToString
 public class UserResponseDto {
 
-    private Optional<UUID> uuid;
+    @JsonProperty("uuid")
+    private UUID uuid;
 
-    private String name;
+    @JsonProperty("first_name")
+    private String firstName;
 
     @JsonProperty("last_name")
     private String lastName;
 
-    private int age;
-
+    @JsonProperty("email")
+    private String email;
 }

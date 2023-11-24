@@ -12,20 +12,9 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class UserService {
-    public Mono<UserResponseDto> processUser(UserRequestDto userRequestDto) {
+    public Mono<String> processUser(UserRequestDto userRequestDto) {
         log.warn("accept user << {}", userRequestDto);
         UserResponseDto userResponseDto = new UserResponseDto();
-
-        userResponseDto.setUuid(Optional.of(UUID.randomUUID()));
-        userResponseDto.setName(userResponseDto.getName());
-        userResponseDto.setLastName(userResponseDto.getLastName());
-        userResponseDto.setAge(userResponseDto.getAge());
-
-        return Mono.just(userResponseDto);
-    }
-
-    public Mono<UserRequestDto> processPassport(UserRequestDto userRequestDto) {
-        log.warn("accept passport << {} : {}", userRequestDto.getPassportSerialNumber(), userRequestDto.getPassportNumber());
-        return Mono.just(userRequestDto);
+        return Mono.just("Ok");
     }
 }

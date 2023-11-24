@@ -15,18 +15,12 @@ import java.util.UUID;
 @ToString
 public class UserRequestDto {
 
-    private Optional<UUID> uuid;
-
-    private String name;
+    @JsonProperty("first_name")
+    private String firstName;
 
     @JsonProperty("last_name")
     private String lastName;
 
-    private int age;
-
-    @JsonProperty("passport_serial_number")
-    private int passportSerialNumber;
-
-    @JsonProperty("passport_number")
-    private int passportNumber;
+    @JsonProperty("email")
+    private String email;
 }
