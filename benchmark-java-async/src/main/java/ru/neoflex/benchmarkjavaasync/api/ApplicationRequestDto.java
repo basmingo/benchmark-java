@@ -1,4 +1,4 @@
-package ru.neoflex.benchmarkjavaasync.dto;
+package ru.neoflex.benchmarkjavaasync.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -6,17 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class UserResponseDto {
-
-    @JsonProperty("uuid")
-    private UUID uuid;
+public class ApplicationRequestDto {
 
     @JsonProperty("first_name")
     private String firstName;
@@ -26,4 +23,10 @@ public class UserResponseDto {
 
     @JsonProperty("email")
     private String email;
+
+    @JsonProperty("amount")
+    private BigDecimal amount;
+
+    @JsonProperty("status")
+    private Optional<String> status;
 }
