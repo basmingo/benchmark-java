@@ -9,7 +9,7 @@ import java.util.UUID;
 @Service
 public class ApplicationMapper {
 
-    public Mono<Application> mapToApplication(ApplicationRequest application) {
+    public Mono<Application> mapToApplication(ApplicationServiceRequest application) {
         return Mono.just(
                 new Application(
                         UUID.randomUUID(),

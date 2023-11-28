@@ -2,7 +2,7 @@ package ru.neoflex.benchmarkjavaasync.core.model;
 
 import java.math.BigDecimal;
 
-public record ApplicationRequest(
+public record ApplicationServiceRequest(
         String firstName,
         String lastName,
         int passportSerialNumber,

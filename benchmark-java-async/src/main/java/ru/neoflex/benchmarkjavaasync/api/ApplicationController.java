@@ -4,19 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-import ru.neoflex.benchmarkjavaasync.impl.ApplicationServiceImpl;
-
-import java.util.UUID;
+import ru.neoflex.benchmarkjavaasync.core.model.ApplicationResponse;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class ApplicationController {
 
-    private final ApplicationServiceImpl userService;
+    private final ServiceAdapter applicationService;
 
     @PostMapping("users/create")
-    public Mono<UUID> postUser(@RequestBody ApplicationRequestDto userRequestDto) {
-        return null;
+    public Mono<ApplicationResponse> postUser(@RequestBody ApplicationRequestDto userRequestDto) {
+        return applicationService.process(userRequestDto);
     }
 }

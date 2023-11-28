@@ -4,5 +4,5 @@ import ru.neoflex.benchmarkjavaasync.core.model.*;
 
 public interface ApplicationService<T> {
 
-    T process(ApplicationRequest applicationRequest);
+    T process(ApplicationServiceRequest applicationServiceRequest);
 }

@@ -1,6 +1,12 @@
 package ru.neoflex.benchmarkjavaasync.core.model;
 
+import org.springframework.data.relational.core.mapping.Table;
+
 import java.util.UUID;
 
-public record User(UUID uuid, String firstName, String lastName) {
+@Table("a_user")
+public record User(
+        UUID id,
+        String firstName,
+        String lastName) {
 }

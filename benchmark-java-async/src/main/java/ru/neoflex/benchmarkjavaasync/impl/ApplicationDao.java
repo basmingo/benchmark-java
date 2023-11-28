@@ -1,5 +1,8 @@
 package ru.neoflex.benchmarkjavaasync.impl;
 
+import io.r2dbc.spi.ConnectionFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import ru.neoflex.benchmarkjavaasync.core.ApplicationRepository;
@@ -10,40 +13,25 @@ import ru.neoflex.benchmarkjavaasync.core.model.User;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ApplicationDao implements ApplicationRepository<Mono<UUID>, Mono<Void>> {
+
+    private final R2dbcEntityTemplate r2dbcEntityTemplate;
 
     @Override
     public Mono<UUID> saveUser(User user) {
-        return Mono.just(user)
-                .doOnNext(it -> {
-                    for (int i = 0; i < 100; i++) {
-                        System.out.println("SAVE USER");
-                    }
-                })
-                .map(User::uuid);
+        return r2dbcEntityTemplate.insert(user).map(User::id);
     }
 
     @Override
     public Mono<Void> saveCreditInformation(CreditInformation creditInformation) {
-        Mono.just(creditInformation)
-                .doOnNext(it -> {
-                    for (int i = 0; i < 100; i++) {
-                        System.out.println("SAVE CREDIT INFO");
-                    }
-                })
-                .subscribe();
+        r2dbcEntityTemplate.insert(creditInformation).subscribe();
         return Mono.empty();
     }
 
     @Override
     public Mono<Void> savePassport(Passport passport) {
-        Mono.just(passport)
-                .doOnNext(it -> {
-                    for (int i = 0; i < 100; i++) {
-                        System.out.println("SAVE PASSPORT");
-                    }
-                })
-                .subscribe();
+        r2dbcEntityTemplate.insert(passport).subscribe();
         return Mono.empty();
     }
 }

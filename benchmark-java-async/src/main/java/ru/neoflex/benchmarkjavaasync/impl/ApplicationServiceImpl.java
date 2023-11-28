@@ -21,18 +21,23 @@ public class ApplicationServiceImpl implements ApplicationService<Mono<Applicati
     private final ApplicationMapper applicationMapper;
 
     @Override
-    public Mono<ApplicationResponse> process(ApplicationRequest applicationRequest) {
-        Mono<Application> application = applicationMapper.mapToApplication(applicationRequest);
+    public Mono<ApplicationResponse> process(ApplicationServiceRequest applicationServiceRequest) {
+        Mono<Application> application = applicationMapper.mapToApplication(applicationServiceRequest);
         Mono<Passport> passport = application.flatMap(applicationMapper::mapToPassport);
         Mono<CreditInformation> creditInformationMono = application
                 .flatMap(applicationMapper::mapToCreditInformation);
 
-        Mono<User> user = application.flatMap(applicationMapper::mapToUser);
-        return Mono.zip(passport.doOnNext(applicationRepository::savePassport)
-                                .subscribeOn(Schedulers.parallel()),
-                        creditInformationMono.doOnNext(applicationRepository::saveCreditInformation)
-                                .subscribeOn(Schedulers.parallel()),
-                        user.flatMap(applicationRepository::saveUser))
-                .flatMap(tuple -> applicationMapper.mapToResult(tuple.getT3()));
+        return application
+                .flatMap(applicationMapper::mapToUser)
+                .flatMap(applicationRepository::saveUser)
+                .doOnNext(ignore -> Mono
+                        .zip(passport
+                                        .doOnNext(applicationRepository::savePassport)
+                                        .subscribeOn(Schedulers.parallel()),
+                                creditInformationMono
+                                        .doOnNext(applicationRepository::saveCreditInformation)
+                                        .subscribeOn(Schedulers.parallel()))
+                        .subscribe())
+                .flatMap(applicationMapper::mapToResult);
     }
 }
