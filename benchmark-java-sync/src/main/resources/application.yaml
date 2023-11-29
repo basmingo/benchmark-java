@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5431/benchmark-test
+    username: admin
+    password: password
