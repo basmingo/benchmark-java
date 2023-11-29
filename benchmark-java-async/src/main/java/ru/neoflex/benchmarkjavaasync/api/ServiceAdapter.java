@@ -7,8 +7,6 @@ import ru.neoflex.benchmarkjavaasync.core.ApplicationService;
 import ru.neoflex.benchmarkjavaasync.core.model.ApplicationResponse;
 import ru.neoflex.benchmarkjavaasync.core.model.ApplicationServiceRequest;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class ServiceAdapter {

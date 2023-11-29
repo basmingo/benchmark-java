@@ -1,8 +1,5 @@
 package com.example.benchmarkjavasync.core.model;
 
-import jakarta.persistence.Entity;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.UUID;
 

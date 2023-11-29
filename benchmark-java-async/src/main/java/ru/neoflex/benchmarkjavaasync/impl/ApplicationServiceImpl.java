@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+import ru.neoflex.benchmarkjavaasync.core.ApplicationRepository;
 import ru.neoflex.benchmarkjavaasync.core.ApplicationService;
 import ru.neoflex.benchmarkjavaasync.core.model.*;
-import ru.neoflex.benchmarkjavaasync.core.ApplicationRepository;
 
 import java.util.UUID;
 

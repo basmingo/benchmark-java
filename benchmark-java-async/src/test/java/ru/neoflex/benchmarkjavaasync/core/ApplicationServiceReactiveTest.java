@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-import ru.neoflex.benchmarkjavaasync.core.model.ApplicationServiceRequest;
 import ru.neoflex.benchmarkjavaasync.core.model.ApplicationResponse;
+import ru.neoflex.benchmarkjavaasync.core.model.ApplicationServiceRequest;
 
 import java.math.BigDecimal;
 
