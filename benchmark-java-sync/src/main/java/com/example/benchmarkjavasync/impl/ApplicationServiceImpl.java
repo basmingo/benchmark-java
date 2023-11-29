@@ -23,6 +23,13 @@ public class ApplicationServiceImpl implements ApplicationService<Optional<Appli
         User user = applicationMapper.mapToUser(application);
         Passport passport = applicationMapper.mapToPassport(application);
 
+        String a = "a";
+        for (int i = 0; i < 100; i++) {
+            a += "a";
+        }
+
+        System.out.println(a);
+
         Optional<UUID> userId = applicationDao.saveUser(user);
         applicationDao.saveCreditInformation(creditInformation);
         applicationDao.savePassport(passport);
