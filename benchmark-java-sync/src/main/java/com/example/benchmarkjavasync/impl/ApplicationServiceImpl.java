@@ -27,5 +27,6 @@ public class ApplicationServiceImpl implements ApplicationService<Optional<Appli
         applicationDao.saveCreditInformation(creditInformation);
         applicationDao.savePassport(passport);
         return userId.map(applicationMapper::mapToResult);
+
     }
 }
