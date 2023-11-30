@@ -10,19 +10,20 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-@RequiredArgsConstructor
 class ApplicationDao : ApplicationRepository<UUID, Unit> {
     override suspend fun saveUser(user: User): UUID {
-        delay(1000)
+        println(Thread.currentThread())
         (1..100).forEach { println("save user $it")}
         return UUID.randomUUID()
     }
 
-    override fun saveCreditInformation(creditInformation: CreditInformation): Unit {
+    override fun saveCreditInformation(creditInformation: CreditInformation) {
+        println(Thread.currentThread())
         (1..100).forEach { println("save credit info $it")}
     }
 
-    override fun savePassport(passport: Passport): Unit {
+    override fun savePassport(passport: Passport) {
+        println(Thread.currentThread())
         (1..100).forEach { println("save passport $it")}
     }
 }

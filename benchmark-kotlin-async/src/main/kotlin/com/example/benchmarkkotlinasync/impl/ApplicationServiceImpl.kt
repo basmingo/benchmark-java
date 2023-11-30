@@ -8,6 +8,8 @@ import com.example.benchmarkkotlinasync.core.model.ApplicationServiceRequest
 import com.example.benchmarkkotlinasync.core.model.Passport
 import com.example.benchmarkkotlinasync.core.model.User
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,27 +23,29 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-class ApplicationServiceImpl @Autowired constructor(
-    val applicationRepository: ApplicationRepository<UUID, Unit>,
-    val applicationMapper: ApplicationMapper
+class ApplicationServiceImpl(
+    private val applicationRepository: ApplicationRepository<UUID, Unit>,
+    private val applicationMapper: ApplicationMapper
 ) : ApplicationService<ApplicationResponse> {
 
-    override suspend fun process(applicationServiceRequest: ApplicationServiceRequest): ApplicationResponse {
-        applicationRepository.saveUser(User(UUID.randomUUID(), "!", "!"))
-        applicationRepository.savePassport(Passport(UUID.randomUUID(), 1234, 123455, UUID.randomUUID()))
+    override suspend fun process(applicationServiceRequest: ApplicationServiceRequest): ApplicationResponse =
+        coroutineScope {
+            val result = async { applicationRepository.saveUser(User(UUID.randomUUID(), "!", "!")) }
+            launch { applicationRepository.savePassport(Passport(UUID.randomUUID(), 1234, 123455, UUID.randomUUID())) }
+            launch {
+                applicationRepository.saveCreditInformation(
+                    CreditInformation(
+                        UUID.randomUUID(),
+                        "!",
+                        BigDecimal.TEN,
+                        UUID.randomUUID()
+                    )
+                )
+            }
 
-        applicationRepository.saveCreditInformation(
-            CreditInformation(
-                UUID.randomUUID(),
-                "!",
-                BigDecimal.TEN,
-                UUID.randomUUID()
-            )
-        )
+            val a = applicationMapper.mapToApplication(applicationServiceRequest)
 
-        val a = applicationMapper.mapToApplication(applicationServiceRequest)
-
-        println(a)
-        return ApplicationResponse(UUID.randomUUID())
-    }
+            println(result.await())
+            return@coroutineScope ApplicationResponse(UUID.randomUUID())
+        }
 }
