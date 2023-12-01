@@ -8,7 +8,7 @@ interface ApplicationRepository<R, V> {
 
     suspend fun saveUser(user: User): R
 
-    fun saveCreditInformation(creditInformation: CreditInformation): V
+    suspend fun saveCreditInformation(creditInformation: CreditInformation): V
 
-    fun savePassport(passport: Passport): V
+    suspend fun savePassport(passport: Passport): V
 }

@@ -7,7 +7,7 @@ import java.util.*
 @Service
 class ApplicationMapper {
 
-    fun mapToApplication(application: ApplicationServiceRequest): Application {
+    suspend fun mapToApplication(application: ApplicationServiceRequest): Application {
         return Application(
                 UUID.randomUUID(),
                 application.firstName,
@@ -18,7 +18,7 @@ class ApplicationMapper {
                 application.status)
     }
 
-    fun mapToCreditInformation(application: Application): CreditInformation {
+    suspend fun mapToCreditInformation(application: Application): CreditInformation {
         return CreditInformation(
                 UUID.randomUUID(),
                 application.status,
@@ -27,7 +27,7 @@ class ApplicationMapper {
         )
     }
 
-    fun mapToUser(application: Application): User {
+    suspend fun mapToUser(application: Application): User {
         return User(
                 application.userId,
                 application.firstName,
@@ -35,7 +35,7 @@ class ApplicationMapper {
         )
     }
 
-    fun mapToPassport(application: Application): Passport {
+    suspend fun mapToPassport(application: Application): Passport {
         return Passport(
                 UUID.randomUUID(),
                 application.passportSerialNumber,
@@ -44,7 +44,7 @@ class ApplicationMapper {
         )
     }
 
-    fun mapToResult(userId: UUID): ApplicationResponse {
+    suspend fun mapToResult(userId: UUID): ApplicationResponse {
         return ApplicationResponse(userId)
     }
 }
