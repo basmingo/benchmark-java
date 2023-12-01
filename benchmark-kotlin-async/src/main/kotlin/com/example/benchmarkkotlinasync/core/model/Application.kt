@@ -1,7 +1,7 @@
 package com.example.benchmarkkotlinasync.core.model;
 
-import java.math.BigDecimal;
-import java.util.UUID;
+import java.math.BigDecimal
+import java.util.*
 
 data class Application(
         val userId: UUID,

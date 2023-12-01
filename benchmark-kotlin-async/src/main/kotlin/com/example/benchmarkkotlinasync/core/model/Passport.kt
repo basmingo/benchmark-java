@@ -1,6 +1,6 @@
 package com.example.benchmarkkotlinasync.core.model;
 
-import java.util.UUID;
+import java.util.*
 
 data class Passport(
         val id: UUID,

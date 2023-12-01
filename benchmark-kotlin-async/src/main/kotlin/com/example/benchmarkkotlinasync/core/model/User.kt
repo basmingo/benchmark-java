@@ -1,8 +1,7 @@
 package com.example.benchmarkkotlinasync.core.model;
 
-import org.springframework.data.relational.core.mapping.Table;
-
-import java.util.UUID;
+import org.springframework.data.relational.core.mapping.Table
+import java.util.*
 
 @Table("a_user")
 data class User(

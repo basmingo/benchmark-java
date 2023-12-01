@@ -2,12 +2,8 @@ package com.example.benchmarkkotlinasync.impl;
 
 import com.example.benchmarkkotlinasync.core.ApplicationRepository
 import com.example.benchmarkkotlinasync.core.ApplicationService
-import com.example.benchmarkkotlinasync.core.model.*
 import com.example.benchmarkkotlinasync.core.model.ApplicationResponse
 import com.example.benchmarkkotlinasync.core.model.ApplicationServiceRequest
-import com.example.benchmarkkotlinasync.core.model.Passport
-import com.example.benchmarkkotlinasync.core.model.User
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch

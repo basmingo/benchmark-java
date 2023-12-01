@@ -1,9 +1,8 @@
 package com.example.benchmarkkotlinasync.impl;
 
 import com.example.benchmarkkotlinasync.core.model.*
-import org.springframework.stereotype.Service;
-
-import java.util.UUID;
+import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class ApplicationMapper {
