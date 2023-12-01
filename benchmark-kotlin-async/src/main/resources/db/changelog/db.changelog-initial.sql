@@ -15,8 +15,7 @@ create table credit_information
     amount  numeric     not null,
     status  varchar(16) not null,
     user_id uuid        not null,
-    primary key (id),
-    constraint fk_user_id foreign key (user_id) references a_user (id)
+    primary key (id)
 );
 
 alter table credit_information
@@ -28,8 +27,7 @@ create table passport
     serial_number int         not null,
     number        int         not null,
     user_id       uuid        not null,
-    primary key (id),
-    constraint fk_user_id foreign key (user_id) references a_user (id)
+    primary key (id)
 );
 
 alter table passport

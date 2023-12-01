@@ -1,0 +1,86 @@
+version: "3"
+services:
+  benchmark-test-java-async-service:
+    container_name: benchmark-test-java-async-service
+    build:
+      context: ../benchmark-java-async
+    image: benchmark-java-async:latest
+    environment:
+      spring.liquibase.url: jdbc:postgresql://postgres-java-async/${db_name}?createDatabaseIfNotExist=true&useSSL=false
+      spring.r2dbc.url: r2dbc:postgresql://postgres-java-sync/${db_name}?createDatabaseIfNotExist=true&useSSL=false
+    networks:
+      - ext-network
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres-java-async
+  benchmark-test-java-sync-service:
+    container_name: benchmark-test-java-sync-service
+    build:
+      context: ../benchmark-java-sync
+    image: benchmark-java-sync:latest
+    environment:
+      spring.liquibase.url: jdbc:postgresql://postgres-java-sync/${db_name}?createDatabaseIfNotExist=true&useSSL=false
+      spring.datasource.url: jdbc:postgresql://postgres-java-async/${db_name}?createDatabaseIfNotExist=true&useSSL=false
+    networks:
+      - ext-network
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres-java-sync
+  benchmark-test-kotlin-async-service:
+    container_name: benchmark-test-kotlin-async-service
+    build:
+      context: ../benchmark-kotlin-async
+    image: benchmark-kotlin-async:latest
+    environment:
+      spring.liquibase.url: jdbc:postgresql://postgres-kotlin-async/${db_name}?createDatabaseIfNotExist=true&useSSL=false
+      spring.r2dbc.url: r2dbc:postgresql://postgres-kotlin-async/${db_name}?createDatabaseIfNotExist=true&useSSL=false
+    networks:
+      - ext-network
+    ports:
+      - "8083:8080"
+    depends_on:
+      - postgres-kotlin-async
+  postgres-java-async:
+    image: postgres:latest
+    container_name: benchmark-test-java-async
+    environment:
+      POSTGRES_USER: ${db_user}
+      POSTGRES_PASSWORD: ${db_password}
+      POSTGRES_DB: ${db_name}
+      PGDATA: /data/postgres
+    networks:
+      - ext-network
+    ports:
+      - "5433:5432"
+    restart: always
+  postgres-java-sync:
+    image: postgres:latest
+    container_name: benchmark-test-java-sync
+    environment:
+      POSTGRES_USER: ${db_user}
+      POSTGRES_PASSWORD: ${db_password}
+      POSTGRES_DB: ${db_name}
+      PGDATA: /data/postgres
+    networks:
+      - ext-network
+    ports:
+      - "5434:5432"
+    restart: always
+  postgres-kotlin-async:
+    image: postgres:latest
+    container_name: benchmark-test-kotlin-async
+    environment:
+      POSTGRES_USER: ${db_user}
+      POSTGRES_PASSWORD: ${db_password}
+      POSTGRES_DB: ${db_name}
+      PGDATA: /data/postgres
+    networks:
+      - ext-network
+    ports:
+      - "5435:5432"
+    restart: always
+networks:
+  ext-network:
+    external: true

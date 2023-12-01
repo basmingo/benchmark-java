@@ -1,5 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5431/benchmark-test
+    url: jdbc:postgresql://localhost:5434/benchmark-test
     username: admin
     password: password
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://localhost:5434/benchmark-test
+    user: admin
+    password: password
+server:
+  port: 8080

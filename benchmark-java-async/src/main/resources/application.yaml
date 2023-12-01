@@ -1,13 +1,12 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:5431/benchmark-test
+    url: r2dbc:postgresql://localhost:5433/benchmark-test
     username: admin
     password: password
   liquibase:
     enabled: true
-    url: jdbc:postgresql://localhost:5431/benchmark-test
+    url: jdbc:postgresql://localhost:5433/benchmark-test
     user: admin
     password: password
-logging:
-  level:
-    org.springframework.data.r2dbc: DEBUG
+server:
+  port: 8080

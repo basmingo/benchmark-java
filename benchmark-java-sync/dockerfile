@@ -1,0 +1,4 @@
+FROM openjdk:17
+COPY /build/libs/*-SNAPSHOT.jar benchmark-java-sync.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/benchmark-java-sync.jar"]

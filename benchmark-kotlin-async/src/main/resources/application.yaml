@@ -8,6 +8,5 @@ spring:
     url: jdbc:postgresql://localhost:5431/benchmark-test
     user: admin
     password: password
-logging:
-  level:
-    org.springframework.data.r2dbc: DEBUG
+server:
+  port: 8080

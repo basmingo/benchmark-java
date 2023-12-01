@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+//    id 'application'
     id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'org.jetbrains.kotlin.jvm' version '1.9.20'
@@ -48,6 +49,26 @@ tasks.withType(KotlinCompile) {
         jvmTarget = '17'
     }
 }
+
+//application {
+//    mainClass = 'com/example/benchmarkkotlinasync/BenchmarkKotlinAsyncApplicationKt'
+//}
+
+//bootJar {
+//    mainClassName = 'com/example/benchmarkkotlinasync/BenchmarkKotlinAsyncApplicationKt'
+//}
+
+//jar {
+//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//
+//    manifest {
+//        attributes "Main-Class": "com/example/benchmarkkotlinasync/BenchmarkKotlinAsyncApplicationKt"
+//    }
+//
+//    from {
+//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
 
 tasks.named('test') {
     useJUnitPlatform()
