@@ -6,9 +6,6 @@ create table a_user
     primary key (id)
 );
 
-alter table a_user
-    owner to admin;
-
 create table credit_information
 (
     id      uuid unique not null,
@@ -18,9 +15,6 @@ create table credit_information
     primary key (id)
 );
 
-alter table credit_information
-    owner to admin;
-
 create table passport
 (
     id            uuid unique not null,
@@ -29,6 +23,3 @@ create table passport
     user_id       uuid        not null,
     primary key (id)
 );
-
-alter table passport
-    owner to admin;
