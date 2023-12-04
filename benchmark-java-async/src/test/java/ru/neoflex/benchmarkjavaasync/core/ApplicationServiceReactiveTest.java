@@ -1,6 +1,7 @@
 package ru.neoflex.benchmarkjavaasync.core;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +10,7 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import reactor.blockhound.BlockHound;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import ru.neoflex.benchmarkjavaasync.core.model.ApplicationResponse;
@@ -20,6 +22,10 @@ import java.math.BigDecimal;
 @Testcontainers
 class ApplicationServiceReactiveTest {
 
+    private static final int PASSPORT_SERIAL_NUMBER = 1234;
+
+    private static final int PASSPORT_NUMBER = 123456;
+
     @Container
     private static final PostgreSQLContainer<?> POSTGRE_SQL_CONTAINER =
             new PostgreSQLContainer<>("postgres:latest")
@@ -27,6 +33,14 @@ class ApplicationServiceReactiveTest {
 
     @Autowired
     ApplicationService<Mono<ApplicationResponse>> applicationService;
+
+    @BeforeAll
+    public static void setUp() {
+        BlockHound
+                .builder()
+                .allowBlockingCallsInside("ru.neoflex.benchmarkjavaasync.impl.UUIDUtils", "randomUUID")
+                .install();
+    }
 
     @DynamicPropertySource
     public static void overrideProps(DynamicPropertyRegistry registry) {
@@ -43,7 +57,6 @@ class ApplicationServiceReactiveTest {
 
     @AfterAll
     public static void tearDown() {
-        String logs = POSTGRE_SQL_CONTAINER.getLogs();
         POSTGRE_SQL_CONTAINER.close();
     }
 
@@ -52,12 +65,12 @@ class ApplicationServiceReactiveTest {
         StepVerifier
                 .create(applicationService.process(
                                 new ApplicationServiceRequest(
-                                        "Pavel",
-                                        "Basmanov",
-                                        1234,
-                                        123456,
+                                        "test_first_name",
+                                        "test_last_name",
+                                        PASSPORT_SERIAL_NUMBER,
+                                        PASSPORT_NUMBER,
                                         BigDecimal.TEN,
-                                        "New")
+                                        "test_status")
                         )
                 )
                 .expectNextMatches(it -> it.applicationId() != null)

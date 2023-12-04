@@ -3,7 +3,6 @@ package ru.neoflex.benchmarkjavaasync.impl;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import ru.neoflex.benchmarkjavaasync.core.model.*;
-
 import java.util.UUID;
 
 @Service
@@ -12,7 +11,7 @@ public class ApplicationMapper {
     public Mono<Application> mapToApplication(ApplicationServiceRequest application) {
         return Mono.just(
                 new Application(
-                        UUID.randomUUID(),
+                        UUIDUtils.randomUUID(),
                         application.firstName(),
                         application.lastName(),
                         application.passportSerialNumber(),
@@ -25,7 +24,7 @@ public class ApplicationMapper {
     public Mono<CreditInformation> mapToCreditInformation(Application application) {
         return Mono.just(
                 new CreditInformation(
-                        UUID.randomUUID(),
+                        UUIDUtils.randomUUID(),
                         application.status(),
                         application.amount(),
                         application.userId()
@@ -46,7 +45,7 @@ public class ApplicationMapper {
     public Mono<Passport> mapToPassport(Application application) {
         return Mono.just(
                 new Passport(
-                        UUID.randomUUID(),
+                        UUIDUtils.randomUUID(),
                         application.passportSerialNumber(),
                         application.passportNumber(),
                         application.userId()
