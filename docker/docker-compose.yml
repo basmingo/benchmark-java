@@ -21,7 +21,7 @@ services:
     image: benchmark-java-sync:latest
     environment:
       spring.liquibase.url: jdbc:postgresql://postgres-java-sync/${db_name}?createDatabaseIfNotExist=true&useSSL=false
-      spring.datasource.url: jdbc:postgresql://postgres-java-async/${db_name}?createDatabaseIfNotExist=true&useSSL=false
+      spring.datasource.url: jdbc:postgresql://postgres-java-sync/${db_name}?createDatabaseIfNotExist=true&useSSL=false
     networks:
       - ext-network
     ports:
